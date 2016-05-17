@@ -9,6 +9,7 @@ int ellipse2x;
 int ellipsey;
 int ellipseSize;
 float r; // variable used to place cars
+boolean Crash;
 // player car
 float px; // x position
 float py; // y position
@@ -28,9 +29,10 @@ float npMoveSpeed;
 void setup()
 {
     Scale = 1;
-    Threshold = 0;
     //size (800*Scale,400*Scale); // if on web
     size(800,400);//If not on web
+    Threshold = 0;
+    
     frameRate(60);
     //for Tracks
     ellipse1x = 3*width/8;
@@ -39,7 +41,8 @@ void setup()
     ellipseSize = 3*width/8;
     
     r = (ellipseSize+(50*Scale))/PI + 20*Scale;
-    BaseSpeed = 40;
+    BaseSpeed = 15;
+    Crash = false;
     //For playerCar
     pcx = ellipse1x;
     pcy = height/2;
@@ -78,17 +81,33 @@ void draw()
   text(npMoveSpeed,width - 50,10);
   text(npx,width - 50,20);
   text(npy,width - 50,30);
+  text(r,10,70);
   //Update Car Position
   pt = pt + pMoveSpeed/1000;
   px = (int)(pcx+r*cos(pt));
   py = (int)(pcy+r*sin(pt));
   DrawCar(px,py,pt);
+  //PrintPoints(px,py,pt+0.14);
   
   //non player car
-  npMoveSpeed = BaseSpeed;
+  npMoveSpeed = BaseSpeed+5;
   npt = npt + npMoveSpeed/1000;
-  npx = (int)(npcx+r*cos(npt));
-  npy = (int)(npcy+r*sin(npt));
+  npx = (float)(npcx+r*cos(npt));
+  npy = (float)(npcy+r*sin(npt));
   DrawCar(npx,npy,npt);
+  
+  
   Threshold +=0.1;
+  
+  boolean Answer = FindCollision(px,py,pt+0.14,npx,npy,npt+0.14);
+  if(Answer == true)
+  {
+    Crash = true;
+  }
+  if (Crash == true)
+  {
+     text("CRASH",10,40);
+     Crash = false;
+     noLoop();
+  }
 }
