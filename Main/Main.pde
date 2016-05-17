@@ -16,7 +16,8 @@ float py; // y position
 int pcx; // starting x position on circle
 int pcy; // starting y position on circle
 float pt; // Rate of change around the circle
-int BaseSpeed;
+int pBaseSpeed; //starting speed for players car
+int npBaseSpeed; //starting speed for np's car
 float pMoveSpeed;
 //Non-player car
 float npx; // x position
@@ -32,7 +33,6 @@ void setup()
     //size (800*Scale,400*Scale); // if on web
     size(800,400);//If not on web
     Threshold = 0;
-    
     frameRate(60);
     //for Tracks
     ellipse1x = 3*width/8;
@@ -41,19 +41,20 @@ void setup()
     ellipseSize = 3*width/8;
     
     r = (ellipseSize+(50*Scale))/PI + 20*Scale;
-    BaseSpeed = 15;
+    pBaseSpeed = 40;
+    npBaseSpeed = 40;
     Crash = false;
     //For playerCar
     pcx = ellipse1x;
     pcy = height/2;
     pt = 10;
-    pMoveSpeed = BaseSpeed;
+    pMoveSpeed = pBaseSpeed;
     //For Non-player car
     npcx = ellipse2x;
     
     npcy = height/2;
     npt = 10;
-    npMoveSpeed = BaseSpeed;
+    npMoveSpeed = npBaseSpeed;
 }
 
 void draw()
@@ -62,16 +63,15 @@ void draw()
   DrawBackground();
   if(mousePressed == true)
   {
-       if (pMoveSpeed <= BaseSpeed+40){pMoveSpeed= pMoveSpeed +3;}
+       if (pMoveSpeed <= pBaseSpeed+40){pMoveSpeed= pMoveSpeed +3;}
   }
   else
   {
-      if (pMoveSpeed > BaseSpeed) {pMoveSpeed = pMoveSpeed -3;}
+      if (pMoveSpeed > pBaseSpeed) {pMoveSpeed = pMoveSpeed -3;}
   }
   if(Threshold >= 10)
   {
-    BaseSpeed++;
-    pMoveSpeed++;
+    npBaseSpeed++;  //only updates np's speed
     Threshold = 0;
   }
   //Debug Display
@@ -90,7 +90,7 @@ void draw()
   //PrintPoints(px,py,pt+0.14);
   
   //non player car
-  npMoveSpeed = BaseSpeed+5;
+  npMoveSpeed = npBaseSpeed;
   npt = npt + npMoveSpeed/1000;
   npx = (float)(npcx+r*cos(npt));
   npy = (float)(npcy+r*sin(npt));
@@ -98,8 +98,8 @@ void draw()
   
   
   Threshold +=0.1;
-  
-  boolean Answer = FindCollision(px,py,pt+0.14,npx,npy,npt+0.14);
+
+ boolean Answer = FindCollision(px,py,pt+0.14,npx,npy,npt+0.14);
   if(Answer == true)
   {
     Crash = true;
@@ -109,5 +109,5 @@ void draw()
      text("CRASH",10,40);
      Crash = false;
      noLoop();
-  }
+ }
 }
