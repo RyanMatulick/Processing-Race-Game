@@ -32,29 +32,9 @@ void setup()
     Scale = 1;
     //size (800*Scale,400*Scale); // if on web
     size(800,400);//If not on web
-    Threshold = 0;
     frameRate(60);
-    //for Tracks
-    ellipse1x = 3*width/8;
-    ellipse2x = width - ellipse1x;
-    ellipsey = height/2;
-    ellipseSize = 3*width/8;
-    
-    r = (ellipseSize+(50*Scale))/PI + 20*Scale;
-    pBaseSpeed = 40;
-    npBaseSpeed = 40;
-    Crash = false;
-    //For playerCar
-    pcx = ellipse1x;
-    pcy = height/2;
-    pt = 10;
-    pMoveSpeed = pBaseSpeed;
-    //For Non-player car
-    npcx = ellipse2x;
-    
-    npcy = height/2;
-    npt = 10;
-    npMoveSpeed = npBaseSpeed;
+  
+    mySetup();
 }
 
 void draw()
@@ -108,6 +88,6 @@ void draw()
   {
      text("CRASH",10,40);
      Crash = false;
-     noLoop();
+     getKey();
  }
 }
