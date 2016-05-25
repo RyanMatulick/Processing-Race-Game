@@ -3,7 +3,6 @@
 //Initialisers
 float Threshold;
 //tracks
-int Scale;
 int ellipse1x;
 int ellipse2x;
 int ellipsey;
@@ -29,18 +28,15 @@ float npMoveSpeed;
 
 void setup()
 {
-    Scale = 1;
-    //size (800*Scale,400*Scale); // if on web
-    size(800,400);//If not on web
+    size(800,600);//If not on web
     frameRate(60);
-  
     mySetup();
 }
 
 void draw()
 {
   background(150,255,0);
-  DrawBackground();
+  DrawBackground(pMoveSpeed);
   if(mousePressed == true)
   {
        if (pMoveSpeed <= pBaseSpeed+40){pMoveSpeed= pMoveSpeed +3;}
@@ -55,6 +51,7 @@ void draw()
     Threshold = 0;
   }
   //Debug Display
+  /*
   text(pMoveSpeed,10,10);
   text(px,10,20);
   text(py,10,30);
@@ -62,6 +59,7 @@ void draw()
   text(npx,width - 50,20);
   text(npy,width - 50,30);
   text(r,10,70);
+  */
   //Update Car Position
   pt = pt + pMoveSpeed/1000;
   px = (int)(pcx+r*cos(pt));

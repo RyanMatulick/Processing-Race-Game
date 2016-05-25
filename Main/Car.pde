@@ -2,7 +2,6 @@ void DrawCar(float x, float y, float t)
 {
   translate(x,y);
   rotate(t+0.14); // 0.14 is a correction value
-  scale(Scale);
   strokeWeight(1);
   
   fill(200,200,255);//car body

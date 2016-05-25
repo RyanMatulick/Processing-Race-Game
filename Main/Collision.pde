@@ -17,7 +17,7 @@ boolean FindCollision(float px, float py, float pt,float npx, float npy, float n
     
     
     //Just To See Points
-    
+    /*
     text("P1",P1.x,P1.y);
     text("P2",P2.x,P2.y);
     text("P3",P3.x,P3.y);
@@ -27,6 +27,7 @@ boolean FindCollision(float px, float py, float pt,float npx, float npy, float n
     text("NP2",NP2.x,NP2.y);
     text("NP3",NP3.x,NP3.y);
     text("NP4",NP4.x,NP4.y);
+    */
     
     Point [] PlayerPoints = {P1,P2,P3,P4};
     Point [] EnemyPoints = {NP1,NP2,NP3,NP4};

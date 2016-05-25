@@ -4,21 +4,21 @@ void mySetup()
     //for Tracks
     ellipse1x = 3*width/8;
     ellipse2x = width - ellipse1x;
-    ellipsey = height/2;
+    ellipsey = height/3;
     ellipseSize = 3*width/8;
     
-    r = (ellipseSize+(50*Scale))/PI + 20*Scale;
+    r = (ellipseSize+(50))/PI + 20;
     pBaseSpeed = 40;
     npBaseSpeed = 40;
     Crash = false;
     //For playerCar
     pcx = ellipse1x;
-    pcy = height/2;
+    pcy = ellipsey;
     pt = 10;
     pMoveSpeed = pBaseSpeed;
     //For Non-player car
     npcx = ellipse2x;
-    npcy = height/2;
+    npcy = ellipsey;
     npt = 10;
     npMoveSpeed = npBaseSpeed;
 }
