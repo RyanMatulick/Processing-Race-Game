@@ -1,5 +1,3 @@
-// CODE WORKS IN BROWSER
-
 //Initialisers
 float Threshold;
 //tracks
@@ -8,84 +6,120 @@ int ellipse2x;
 int ellipsey;
 int ellipseSize;
 float r; // variable used to place cars
-boolean Crash;
-// player car
-float px; // x position
-float py; // y position
-int pcx; // starting x position on circle
-int pcy; // starting y position on circle
-float pt; // Rate of change around the circle
-int pBaseSpeed; //starting speed for players car
-int npBaseSpeed; //starting speed for np's car
-float pMoveSpeed;
-//Non-player car
-float npx; // x position
-float npy; // y position
-int npcx; // starting x position on circle
-int npcy; // starting y position on circle
-float npt; // Rate of change around the circle
-float npMoveSpeed;
+int K;
+int NumofCars;
+int score;
 
+boolean DebugMode;
+boolean Crash;
+
+Car [] CarArray = new Car[4];
 void setup()
 {
-    size(800,600);//If not on web
-    frameRate(60);
+  DebugMode = true;
+  size(800,600);//If not on web
+  frameRate(60);  
+    
     mySetup();
 }
 
 void draw()
 {
-  background(150,255,0);
-  DrawBackground(pMoveSpeed);
-  if(mousePressed == true)
+  background(50,185,0);
+  DrawBackground(CarArray[0],CarArray[1]);
+  
+  fill(255);
+  if (Crash == false)
   {
-       if (pMoveSpeed <= pBaseSpeed+40){pMoveSpeed= pMoveSpeed +3;}
+  UpdatePlayerSpeed(CarArray[0]);
+  UpdatePlayerSpeed(CarArray[1]);
   }
-  else
+  if (DebugMode == false)
   {
-      if (pMoveSpeed > pBaseSpeed) {pMoveSpeed = pMoveSpeed -3;}
+    Threshold +=0.4; // Timer to increase Base Speeds
   }
-  if(Threshold >= 10)
+  
+  if(Threshold >= 10 && CarArray[0].getBaseSpeed() <70) // Update Base Speed
   {
-    npBaseSpeed++;  //only updates np's speed
+    CarArray[3].setSpeed(CarArray[3].getSpeed() + 1.2);
+    CarArray[2].setSpeed(CarArray[2].getSpeed() + 1.1);
+    CarArray[1].setBaseSpeed(CarArray[1].getBaseSpeed() + 1);
+    CarArray[0].setBaseSpeed(CarArray[0].getBaseSpeed() + 1);
     Threshold = 0;
   }
-  //Debug Display
-  /*
-  text(pMoveSpeed,10,10);
-  text(px,10,20);
-  text(py,10,30);
-  text(npMoveSpeed,width - 50,10);
-  text(npx,width - 50,20);
-  text(npy,width - 50,30);
-  text(r,10,70);
-  */
-  //Update Car Position
-  pt = pt + pMoveSpeed/1000;
-  px = (int)(pcx+r*cos(pt));
-  py = (int)(pcy+r*sin(pt));
-  DrawCar(px,py,pt);
-  //PrintPoints(px,py,pt+0.14);
-  
-  //non player car
-  npMoveSpeed = npBaseSpeed;
-  npt = npt + npMoveSpeed/1000;
-  npx = (float)(npcx+r*cos(npt));
-  npy = (float)(npcy+r*sin(npt));
-  DrawCar(npx,npy,npt);
-  
-  
-  Threshold +=0.1;
-
- boolean Answer = FindCollision(px,py,pt+0.14,npx,npy,npt+0.14);
-  if(Answer == true)
+  // Update Car Positions
+  for (int i = 0; i<NumofCars; i++)
   {
-    Crash = true;
+    float R;
+    if (i%2 == 0)
+    {
+      R = r + 30;
+    }
+    else
+    {
+      R = r - 10; 
+    }
+    if (Crash == false)
+    {
+      CarArray[i].setT(CarArray[i].getT() + CarArray[i].getSpeed()/1000); // T = (T + Speed/1000)
+    }
+    CarArray[i].setX((int)(CarArray[i].getCX()+R*cos(CarArray[i].getT()))); // X = (CX+r*cos(T))
+    CarArray[i].setY((int)(CarArray[i].getCY()+R*sin(CarArray[i].getT()))); // Y = (CY+r*cos(T))
+    DrawCar(CarArray[i]); // Draw Car
   }
-  if (Crash == true)
+  
+  if (FindScore(CarArray[0]) == true)// get collision with start line 
   {
-     text("CRASH",10,40);
-     Crash = false;
-     getKey();
- }
+      score++;
+  } 
+ 
+  for (int i = 0; i < 2; i ++)
+  {
+    for (int j = 0; j < 2; j++) 
+    {
+      if (Crash == false)
+      {
+        Crash = FindCollision(CarArray[i],CarArray[j+2]);
+         K = i;
+      }
+      if (Crash == true)
+      {
+        if (DebugMode == true)
+        {
+          fill(255);
+          text("CRASH",10,40);
+        }
+        if (K == 0)
+        {
+          text("Player 1 Crashed!!",330,440);
+        }
+        else
+        {
+          text("Player 2 Crashed!!",330,440);
+        }
+        
+        break;
+      }
+    }
+  }
+  if (Crash == true|| DebugMode == true)
+  {
+    Reset();
+  }
+}
+
+void keyPressed()
+{
+  if(key== CarArray[0].getControl())
+    CarArray[0].KeyPressed = true;
+  if(key==CarArray[1].getControl())
+    CarArray[1].KeyPressed=true;
+}
+  
+  void keyReleased()
+{
+  if(key==CarArray[0].getControl())
+    CarArray[0].KeyPressed=false;
+  if(key==CarArray[1].getControl())
+    CarArray[1].KeyPressed=false;
 }

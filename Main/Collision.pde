@@ -1,5 +1,13 @@
-boolean FindCollision(float px, float py, float pt,float npx, float npy, float npt)
+boolean FindCollision(Car Player,Car Enemy)
 {
+    int px = Player.getX();
+    int py = Player.getY();
+    float pt = Player.getT()+0.14;
+    
+    int npx = Enemy.getX();
+    int npy = Enemy.getY();
+    float npt = Enemy.getT()+0.14;
+  
     Point Q1 = new Point(0,0);
     Point Q2 = new Point(20,0); // car Height
     Point Q3 = new Point(20,40);
@@ -15,19 +23,18 @@ boolean FindCollision(float px, float py, float pt,float npx, float npy, float n
     Point NP3 = new Point(Q3.x*cos(npt)+Q3.y*sin(-npt)+npx,Q3.x*sin(npt)+Q3.y*cos(npt)+npy);
     Point NP4 = new Point(Q4.y*sin(-npt)+npx,Q4.y*cos(npt)+npy);
     
-    
     //Just To See Points
-    /*
-    text("P1",P1.x,P1.y);
-    text("P2",P2.x,P2.y);
-    text("P3",P3.x,P3.y);
-    text("P4",P4.x,P4.y); 
-    
-    text("NP1",NP1.x,NP1.y);
-    text("NP2",NP2.x,NP2.y);
-    text("NP3",NP3.x,NP3.y);
-    text("NP4",NP4.x,NP4.y);
-    */
+    if (DebugMode == true)
+    {
+      text("P1",P1.x,P1.y);
+      text("P2",P2.x,P2.y);
+      text("P3",P3.x,P3.y);
+      text("P4",P4.x,P4.y);   
+      text("NP1",NP1.x,NP1.y);
+      text("NP2",NP2.x,NP2.y);
+      text("NP3",NP3.x,NP3.y);
+      text("NP4",NP4.x,NP4.y);
+    }
     
     Point [] PlayerPoints = {P1,P2,P3,P4};
     Point [] EnemyPoints = {NP1,NP2,NP3,NP4};
@@ -35,20 +42,27 @@ boolean FindCollision(float px, float py, float pt,float npx, float npy, float n
     for (int i = 0; i<4; i++)
     {
       int Nexti = i+1;
-      if (Nexti == 4){Nexti = 1;}
+      if (Nexti == 4)
+      {
+        Nexti = 1;
+      }
       for (int j = 0; j<4; j++)
       { 
         int Nextj = j+1;
-        if (Nextj == 4){Nextj = 1;}
+        if (Nextj == 4)
+        {
+          Nextj = 1;
+        }
         ANSWER = LinesIntersect(PlayerPoints[j],PlayerPoints[Nextj],EnemyPoints[i],EnemyPoints[Nexti]);
-        if(ANSWER == true){return true;}
+        if(ANSWER == true)
+        {
+          return true;
+        }
       }
     }
     
     return ANSWER;
 }
-
-
 
 boolean LinesIntersect(Point A, Point B, Point C,Point D)
 {
@@ -65,6 +79,28 @@ boolean LinesIntersect(Point A, Point B, Point C,Point D)
   float u = CmPxr * rxsr;
 
   return (t >= 0) && (t <= 1) && (u >= 0) && (u <= 1);
+}
+
+boolean FindScore(Car Player)
+{
+  int px = Player.getX();
+  int py = Player.getY();
+  float pt = Player.getT()+0.14;
+  Point Q3 = new Point(20,40); // car width + car length
+  Point Q4 = new Point(0,40); // car length
+  
+  Point P3 = new Point(Q3.x*cos(pt)+Q3.y*sin(-pt)+px,Q3.x*sin(pt)+Q3.y*cos(pt)+py);
+  Point P4 = new Point(Q4.y*sin(-pt)+px,Q4.y*cos(pt)+py);
+  
+  Point S1 = new Point(3*width/9,height/3-3*width/16-((height+width)/40)); // finishline start
+  Point S2 = new Point(3*width/8,height/3-3*width/16+(height+width)/40); // finishline end
+  if (DebugMode == true)
+  {
+  text("S1",S1.x,S1.y);
+  text("S2",S2.x,S2.y);
+  }
+  
+  return LinesIntersect(P3,P4,S1,S2);
 }
 
 class Point
