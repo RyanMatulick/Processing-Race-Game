@@ -1,30 +1,13 @@
-void DrawCar(Car car)
-{
-  int x = car.getX();
-  int y = car.getY();
-  float t = car.getT() + 0.14;
-  translate(x,y);
-  rotate(t); // 0.14 is a correction value
-  strokeWeight(1);
-  stroke(100,100,100);
-  fill(200,200,255);//car body
-  rect(0,0,20,40);
-  rect(2,7,16,20);
-  fill(255,255,0);// front lights
-  rect(0,35,7,5);
-  rect(13,35,7,5);
-  fill(255,0,0);// back lights
-  rect(0,0,5,7);
-  rect(15,0,5,7);
-  
-  //Reset For next Car
-  rotate(-t);
-  translate(-x,-y);
-} 
+// A class to describe a Star shape
 
-class Car // defines all cars
+class Vehicle
 {
-
+  // The PShape object
+  PShape s;
+  PShape a;
+  float Length;
+  float Width;
+  // ------------ From Last Time
   int xpos; // x position
   int ypos; // y position
   int cx; // starting x position on circle
@@ -36,8 +19,19 @@ class Car // defines all cars
   boolean canBoost;
   char control; // Key corresponding to player movement
   boolean KeyPressed;
-  Car(int Cx, int Cy, int Speed)
+  // From Last Time
+  Vehicle(int Cx, int Cy, int Speed)
   {
+    s = createShape(BOX,20,40,15);
+    s.setStroke(color(0));
+    s.setFill(color(200,0,0));
+    a = createShape(BOX,20,10,10);
+    a.translate(0,20+5,-2.5);
+    a.setStroke(color(0));
+    Length = 50;
+    Width = 20;
+    
+    //
     KeyPressed = false;
     BaseSpeed = Speed;
     speed = BaseSpeed; 
@@ -47,6 +41,21 @@ class Car // defines all cars
     boost = 100;
     canBoost = true;
   }
+
+  void display()
+  {
+    // Locating and drawing the shape
+    translate(xpos, ypos);
+    rotate(t);
+    pushMatrix();
+    shape(s);
+    shape(a);
+    popMatrix();
+    rotate(-t);
+    translate(-xpos, -ypos);
+    
+  }
+  
   void setT(float T)
   {
     t = T;
@@ -104,4 +113,5 @@ class Car // defines all cars
   {
    return control; 
   }
+  
 }

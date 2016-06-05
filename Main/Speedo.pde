@@ -24,10 +24,16 @@ void Speedo(float speed, int TX, int TY)
     lineX = -cos(i*PI/12);
     lineY = -sin(i*PI/12);
     line(111*lineX,111*lineY,90*lineX,90*lineY); 
-    fill(255);
+    if (i%2==0)
+    {   
+      fill(255);
+      textSize(12);
+      text(10*i,70*lineX-10,70*lineY);
+    }
   }
   //Speedo Line
-  stroke(223,9,216);
+  stroke(23,209,216);
+  strokeWeight(5);
   line(-110*cos(speed*PI/120),-110*sin(speed*PI/120),0,0);
   //bottom line
   stroke(0);
@@ -69,7 +75,8 @@ void BOOST(float boost, int TX, int TY)
     line(111*lineX,111*lineY,90*lineX,90*lineY);
   }
   //Boost Line
-  stroke(223,9,216);
+  stroke(23,209,216);
+  strokeWeight(5);
   line(-110*cos(boost*PI/132),-110*sin(boost*PI/132),0,0);
   //bottom line
   stroke(0);
@@ -79,5 +86,7 @@ void BOOST(float boost, int TX, int TY)
   //reset
   rotate(PI/2.4);
   scale(1.25);
+  fill(255);
+  text("Fuel",-50,0);
   translate(-TX,-TY);
 }

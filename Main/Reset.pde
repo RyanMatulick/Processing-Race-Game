@@ -4,6 +4,8 @@ void mySetup()
     K = -1;
     Threshold = 0;
     NumofCars = 4;
+    score1 = 0;
+    score2 = 0;
     //for Tracks
     ellipse1x = 3*width/8;
     ellipse2x = width - ellipse1x;
@@ -30,43 +32,4 @@ void Reset()
          mySetup();
        }
   }
-}
-
-void UpdatePlayerSpeed(Car Player)
-{
-    if(Player.KeyPressed == true)
-    {
-      Player.boost = Player.boost-1; // decrease Boost
-      if (Player.boost<=0) // If Boost is depleted Boost is false
-      { 
-        Player.boost=0;
-        Player.canBoost=false;
-      }
-      if ( Player.canBoost==true)
-      {
-        if ((Player.getSpeed() <= Player.getBaseSpeed()+40)) // if Player speed is less than max speed
-        {
-          Player.setSpeed(Player.getSpeed() +1.5); // Player Speed -> Max Speed
-        }
-      }
-      else if (Player.getSpeed() > Player.getBaseSpeed())  // if mouse is pressed and Player Speed is Greater than Base Speed
-      {
-        Player.setSpeed(Player.getSpeed() - 2); // Decrease Player Speed -> Base Speed
-      }
-    } // end player move key
-    else if (Player.getSpeed() > Player.getBaseSpeed()) // if mouse is not pressed and Player Speed is Greater than Base Speed
-    {
-      Player.setSpeed(Player.getSpeed() -2); // Decrease Player Speed -> Base Speed
-    }
-    else // if mouse is not pressed
-    {
-      Player.setSpeed(Player.getBaseSpeed());
-      Player.canBoost=true; // We can now Boost again
-      Player.boost++; // Add fuel Back
-      if( Player.boost>100) // Make sure not to have too much fuel
-      {
-          Player.boost=100;
-      }
-    } 
-
 }
