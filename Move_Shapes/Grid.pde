@@ -4,13 +4,11 @@ float NumOfGridLinesW;
 float NumOfGridLinesH;
 
 
-
-
 void MakeGrid()
 {
   
   NumOfGridLinesW = (width/GridSize);
-  NumOfGridLinesH = (height/GridSize)+1;
+  NumOfGridLinesH = (height/GridSize);
   strokeWeight(1);
   stroke(120);
   Grid = createShape();

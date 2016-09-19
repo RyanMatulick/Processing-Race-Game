@@ -10,23 +10,22 @@ Polygon Poly;
 
 void setup()
 {
+  background(255);
   size(600,600);
   frameRate(120);
   //noCursor();
   MakeGrid();
-  
-  
 }
 
 
 void draw()
 {
-  background(200);
+  background(255);
   fill(0);
   DrawCursor();
   
   Poly = new Polygon(PointArray);
-  Poly.display();
+  //Poly.display();
   mouseHover();
   LineArray.clear();
     

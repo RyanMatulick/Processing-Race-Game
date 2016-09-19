@@ -7,22 +7,22 @@ void GetKeyPresses()
   if(KeyPress[0] == true) // Move Up
   
   {
-    ypos -= CamMoveSpeed;
+    cypos -= CamMoveSpeed;
   }
   
   if(KeyPress[1] == true) // Move down
   {
-    ypos += CamMoveSpeed;
+    cypos += CamMoveSpeed;
   }
   
   if(KeyPress[2] == true) // Move Left
   {
-    xpos -= CamMoveSpeed;
+    cxpos -= CamMoveSpeed;
   }
   
   if(KeyPress[3] == true) // Move Right
   {
-    xpos += CamMoveSpeed;
+    cxpos += CamMoveSpeed;
   }
   
   if(KeyPress[4] == true) // Orbit Up
@@ -47,8 +47,8 @@ void GetKeyPresses()
     UDrotation = 0;
     Izpos = 0;
     Ixpos = 0;
-    xpos = 0;
-    ypos = 0;
+    cxpos = 0;
+    cypos = 0;
   }
   if (KeyPress[9] == true)// Zoom In
   {
@@ -66,6 +66,12 @@ void GetKeyPresses()
 //--------------------------------------------------
 void keyPressed() // define what happens when specific keys are pressed
 {
+  if(key == 'g' && !FPMtoggle)
+  {
+    isFPM =! isFPM;
+    FPMtoggle = true;
+  }
+  
   for (int i = 0; i< Keys.length; i++)
   {
     if(key == Keys[i])
@@ -79,6 +85,11 @@ void keyPressed() // define what happens when specific keys are pressed
   
 void keyReleased() // needed for multi touch controls
 {
+   if(key == 'g')
+  {
+    FPMtoggle=false;
+  }
+  
   for (int i = 0; i< Keys.length; i++)
   {
     if(key == Keys[i])

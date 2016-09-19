@@ -22,6 +22,10 @@ Vehicle [] CarArray = new Vehicle[4];
 
 void mySetup()
 {
+    cxpos = 450;
+    cypos = 420;
+    orbitRadius = 660;
+  
     Crash = false;
     K = -1;
     Threshold = 0;

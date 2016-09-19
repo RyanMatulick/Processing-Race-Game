@@ -1,4 +1,3 @@
-
 class Polygon
 {
   PShape Poly;

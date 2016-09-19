@@ -4,12 +4,12 @@ BasicShape InsideTrack;
 
 void setup() 
 {
-  size(500, 500, P3D);
+  size(800, 700, P3D);
   mySetup();
   DebugMode = true;
   LRrotation = 0;
   UDrotation = 0;
-  orbitRadius = 550;
+  //orbitRadius = 550;
   CamMoveSpeed = 3;
   
   for (int i = 0; i<KeyPress.length; i++)
@@ -26,11 +26,13 @@ void draw()
 {
   background(255);
   lights();
-
+  DrawBackground();
   MyCamera();
+  //dashboard();
   GetKeyPresses();
   
-  DrawBackground();
+
+  
   
   // Update the speed of The 2 Players based on Boost
   UpdatePlayerSpeed(CarArray[0]);
@@ -64,6 +66,7 @@ void draw()
       CarArray[i].setX((int)(CarArray[i].getCX()+R*cos(CarArray[i].getT()))); // X = (CX+r*cos(T))
       CarArray[i].setY((int)(CarArray[i].getCY()+R*sin(CarArray[i].getT()))); // Y = (CY+r*cos(T))
     }
+    fill(0,255,0);
     CarArray[i].display(); // Draw Cars
   }
   

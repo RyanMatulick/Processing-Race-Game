@@ -23,11 +23,8 @@ class Vehicle
   Vehicle(int Cx, int Cy, int Speed)
   {
     s = createShape(BOX,20,40,15);
-    s.setStroke(color(0));
-    s.setFill(color(200,0,0));
     a = createShape(BOX,20,10,10);
     a.translate(0,20+5,-2.5);
-    a.setStroke(color(0));
     Length = 50;
     Width = 20;
     
@@ -44,11 +41,15 @@ class Vehicle
 
   void display()
   {
+    strokeWeight(1);
+    
     // Locating and drawing the shape
     translate(xpos, ypos);
     rotate(t);
     pushMatrix();
+    s.setFill(color(0,255,0));
     shape(s);
+    a.setFill(color(255,0,255));
     shape(a);
     popMatrix();
     rotate(-t);
