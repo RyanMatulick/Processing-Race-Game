@@ -1,15 +1,24 @@
 Vehicle truck;
 BasicShape Track;
 BasicShape InsideTrack;
+int MenuSelect;
+Boolean MenuAction;
+Button LineButton;
+
+ArrayList <Button> MenuButtons = new ArrayList<Button>();
 
 void setup() 
 {
-  size(800, 700, P3D);
+  //size(800, 700, P3D);
+  
+  PFont font = loadFont("Rockwell-BoldItalic-128.vlw");
+  textFont(font,128);
+  
+  fullScreen(P3D,2);
+  
   mySetup();
-  DebugMode = true;
-  LRrotation = 0;
-  UDrotation = 0;
-  //orbitRadius = 550;
+  DebugMode = false;
+  
   CamMoveSpeed = 3;
   
   for (int i = 0; i<KeyPress.length; i++)
@@ -18,22 +27,103 @@ void setup()
   }
   Track = new BasicShape(20, r+60, 20);
   InsideTrack = new BasicShape(20,r-30,30);
+  
+  print(width,"\n");
+  print(height);
+  
+  
+  MenuSelect = 0;
+  MenuAction = false;
+  MenuButtons.add(new Button(ellipse1x-width/2,ellipsey-height/2+150,50,140,110,10,-0.8,0,0,"1P",150,255,150));
+  MenuButtons.add(new Button(ellipse2x-width/2,ellipsey-height/2+150,50,140,110,10,-0.8,0,0,"2P",150,255,150));
+  
+  
   frameRate(120);
 }
 
+boolean PlayGame = false;
 
 void draw()
 {
+  noCursor();
   background(255);
   lights();
-  DrawBackground();
   MyCamera();
-  //dashboard();
+  
+  DrawBackground();
   GetKeyPresses();
   
+  GameLoop();
+  if (PlayGame == false)
+  {
+     MenuLoop();
+  }
+  else
+  {
+    
+  }
+  
+}
 
+void MenuLoop()
+{
+  stroke(0);
+
+  translate(width/2,height/2,0);
+  //title Box
+  rotateX(-1);
+  fill(255,150,150);
+  translate(0,-200,0);
+  box(800,120,10);
+  translate(0,200,0);
+  //Title Words
+  textSize(100);
+  fill(0);
+  text("Don't Crash!!",-300,-160,25);
+  rotateX(1);
   
   
+  
+  for(int i = 0; i< MenuButtons.size(); i++)
+  {
+    if(i == MenuSelect)
+    {
+      MenuButtons.get(i).Display(true);
+    }
+    else
+    {
+      MenuButtons.get(i).Display(false);  
+    }
+  }
+  
+  translate(-width/2,-height/2,0);
+  
+  if(MenuAction == true)
+  {
+    switch(MenuSelect)
+    {
+      case 0: cxpos = width/2;
+              cypos = height/2;
+              czpos = 0;
+    
+              orbitRadius = 780;
+              UDrotation = 90;
+              LRrotation = -5;
+              
+              PlayGame = true;
+              break;
+    }
+  }
+  
+}
+
+
+
+
+
+void GameLoop()
+{
+
   // Update the speed of The 2 Players based on Boost
   UpdatePlayerSpeed(CarArray[0]);
   UpdatePlayerSpeed(CarArray[1]);

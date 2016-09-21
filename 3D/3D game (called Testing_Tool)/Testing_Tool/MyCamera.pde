@@ -13,14 +13,19 @@ float CamMoveSpeed;
 
 void MyCamera()
 {
-  /*
+  
   // print camera pos
-  text(Ixpos,450,210,200);
-  text(xpos, 450,220,200); // 438
-  text(Iypos,450,230,200);
-  text(ypos, 450,240,200); // 315
-  text(Izpos,450,250,200); // 540
-  text(zpos, 450,260,200);
+  /*
+  fill(0);
+  text(Ixpos,950,510,50);
+  text(cxpos, 950,520,50); // 438
+  text(Iypos,950,530,50);
+  text(cypos, 950,540,50); // 315
+  text(Izpos,950,550,50); // 540
+  text(czpos, 950,560,50);
+  text(orbitRadius,950,570,50);
+  text(UDrotation,950,580,50);
+  text(LRrotation,950,590,50);
   */
   
   

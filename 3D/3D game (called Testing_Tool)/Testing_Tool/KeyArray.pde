@@ -43,12 +43,26 @@ void GetKeyPresses()
   }
   if (KeyPress[8] == true)// Reset
   {
-    LRrotation = 0;
-    UDrotation = 0;
-    Izpos = 0;
-    Ixpos = 0;
-    cxpos = 0;
-    cypos = 0;
+    if (PlayGame == true)
+    {
+      cxpos = width/2;
+      cypos = height/2;
+      czpos = 0;
+    
+      orbitRadius = 780;
+      UDrotation = 90;
+      LRrotation = -5;
+    }
+    else
+    {
+      cxpos = width/2;
+      cypos = height/2;
+      czpos = 0;
+      
+      orbitRadius = 650;
+      UDrotation = 90;
+      LRrotation = 64;
+    }
   }
   if (KeyPress[9] == true)// Zoom In
   {
@@ -58,7 +72,7 @@ void GetKeyPresses()
   {
     orbitRadius += 5;
   }
-  
+
 }
 
 //--------------------------------------------------
@@ -81,8 +95,15 @@ void keyPressed() // define what happens when specific keys are pressed
     CarArray[0].KeyPressed = true;
   if(key==CarArray[1].getControl())
     CarArray[1].KeyPressed=true;
-}
+    
+  if(keyCode == ENTER)
+    {
+      MenuAction = true;
+    }  
   
+  
+}
+
 void keyReleased() // needed for multi touch controls
 {
    if(key == 'g')
@@ -99,4 +120,24 @@ void keyReleased() // needed for multi touch controls
     CarArray[0].KeyPressed=false;
   if(key==CarArray[1].getControl())
     CarArray[1].KeyPressed=false;
+    
+  if(keyCode == ENTER)
+  {
+    MenuAction = false;
+  } 
+    
+  if (key == CODED)
+  {
+    if (keyCode == LEFT && MenuSelect != 0)
+    {
+      MenuSelect--;
+    } 
+    if(keyCode == RIGHT && MenuSelect != MenuButtons.size()-1)
+    {
+      MenuSelect++; 
+    }
+    
+    
+    
+  }
 }

@@ -22,9 +22,24 @@ Vehicle [] CarArray = new Vehicle[4];
 
 void mySetup()
 {
+  if (PlayGame == true)
+  {
     cxpos = 450;
     cypos = 420;
     orbitRadius = 660;
+    LRrotation = 0;
+    UDrotation = 0;
+  }
+  else
+  {
+    cxpos = width/2;
+    cypos = height/2;
+    czpos = 0;
+    
+    orbitRadius = 650;
+    UDrotation = 90;
+    LRrotation = 64;
+  }
   
     Crash = false;
     K = -1;
@@ -33,11 +48,11 @@ void mySetup()
     score1 = 0;
     score2 = 0;
     //for Tracks
-    ellipse1x = 300;
-    ellipse2x = 600;
-    ellipsey = 300;
+    ellipse2x = (width/5)*3;
+    ellipse1x = (width/5)*2;
+    ellipsey = height/2;
     ellipseSize = 3*width/8;
-    r = 200;
+    r = width/7;
     
     //For playerCar
     CarArray[0] = new Vehicle(ellipse1x,ellipsey,10);

@@ -24,5 +24,5 @@ void thirdPersonMode()
   
 }
 
-boolean isFPM = false;
+boolean isFPM = true;
 boolean FPMtoggle = false;
