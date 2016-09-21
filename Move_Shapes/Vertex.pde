@@ -1,4 +1,3 @@
-static int GID = 0;
 class Vertex
 {
  int ID;
@@ -7,24 +6,31 @@ class Vertex
  float zpos;
  int R;
  int B;
+ int G;
  boolean IsOver;
  boolean IsSelected;
-  Vertex(int x, int y,int z)
+  Vertex(float x, float y,float z)
   {
     xpos = x;
     ypos = y;
     zpos = z;
-    R = 255;
-    B = 255;
+    R = 0;
+    B = 0;
+    G = 0;
     IsOver = true;
-    IsSelected = true;
-    ID = GID;
-    GID++;
+    IsSelected = false;
   }
-  void plot()
-  {
-    strokeWeight(5);
-    stroke(R,B,0);
-    point(xpos,ypos);
-  }
+ 
+    void plot()
+    {
+      strokeWeight(5);
+      stroke(R,B,G);
+      point(xpos,ypos);
+      
+      if(IsSelected)
+      {R = 0;G = 0;B = 255;}
+      else
+    {R = 0;G = 0;B = 0;}
+      
+    }
 }
