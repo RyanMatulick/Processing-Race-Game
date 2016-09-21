@@ -38,8 +38,7 @@ void draw()
   Poly = new Polygon(PointArray);
   //Poly.display();
   mouseHover();
-  //LineArray.clear();
-    
+  //LineArray.clear();    
   
   // For All Points
   for (int i = 0; i< PointArray.size(); i++)
@@ -56,34 +55,23 @@ void draw()
      text("OVER",20,10+10*i); 
     }
   }
-    
-  if(PointArray.size() >2 && newPoint == true)
+  
+  //Adds new line when a new point is created.  
+  if(PointArray.size() >0 && newPoint == true)
   {
-      
-      if(LineArray.size() >= 2)
-      { 
-        GLID--; 
-        LineArray.set(LineArray.size()-1, new Line(PointArray.get(PointArray.size()-3),PointArray.get(PointArray.size()-2)));
-        LineArray.add(new Line(PointArray.get(PointArray.size()-2),PointArray.get(PointArray.size()-1)));
-      }
-      
-      else if(LineArray.size() == 1)
-      {
-        LineArray.add(new Line(PointArray.get(PointArray.size()-3),PointArray.get(PointArray.size()-2)));
-        LineArray.add(new Line(PointArray.get(PointArray.size()-2),PointArray.get(PointArray.size()-1)));
-      }
-      
-      else
-      {LineArray.add(new Line(PointArray.get(PointArray.size()-3),PointArray.get(PointArray.size()-2)));}
-      newPoint = false;
-
+    LineArray.clear();
+    GLID = 0;
+    
+    for(int i = 0; i < PointArray.size()-1; i++)
+    {
+      LineArray.add(new Line(PointArray.get(i),PointArray.get(i+1)));
+    }
+    newPoint = false;
   }
   
   for (int i = 0; i< LineArray.size(); i++)
   {
     Line line = LineArray.get(i);
-    
-    LineArray.get(i).CheckOnLine();
     
     text(line.ID,100,10+10*i);
     LineArray.get(i).Display();
@@ -98,6 +86,5 @@ void draw()
   }
   
   text(PointArray.size(),180,50);
-  text(LineArray.size(),180,60);
-    
+  text(LineArray.size(),180,60);    
 }

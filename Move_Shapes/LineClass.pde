@@ -28,21 +28,15 @@ class Line
     R = 255;
     G = 0;
     B = 0;
-    ID = GLID;
-    GLID++;
+    ID = GLID++;
   }
   
   void Display()
   {
+   update();
    stroke(R,G,B);
    strokeWeight(1);
-   line(Xpos1,Ypos1,Xpos2,Ypos2);
-   
-   if(IsSelected)
-   {
-     p1.IsSelected = true;
-     p2.IsSelected = true;
-   }
+   line(Xpos1,Ypos1,Xpos2,Ypos2);  
   }
   
   void GenerateEquation()
@@ -59,6 +53,31 @@ class Line
     Xpos2 = point2.xpos;
     Ypos2 = point2.ypos;
     GenerateEquation();
+  }
+  
+  void update()
+  {
+    CheckOnLine();
+
+    if(IsSelected)
+    {
+      p1.IsSelected = true;
+      p2.IsSelected = true;
+      R = 255;
+      G = 0;
+      B = 255;
+    }
+    else if(IsOver) 
+    { //<>//
+      R = 0;
+      G = 255;
+      B = 0;
+    }
+ 
+    if (keyPressed && key == 'p' && IsSelected) // if we are not holding shift
+    {
+      IsSelected = false;         
+    }
   }
   
   boolean CheckinLineDomain(boolean realSlope) //check to see if the mosue cursor is with in the lines domain
@@ -132,6 +151,7 @@ class Line
       {
         R = 0;
         G = 255;
+        B = 0;
         IsOver = true;
       }
       
@@ -139,6 +159,7 @@ class Line
       {
         R = 255;
         G = 0;
+        B = 0;
         IsOver = false;
       }
     }    
@@ -147,8 +168,8 @@ class Line
     {
       R = 255;
       G = 0;
+      B = 0;
       IsOver = false;
     }
-  }
-  
+  }  
 }
