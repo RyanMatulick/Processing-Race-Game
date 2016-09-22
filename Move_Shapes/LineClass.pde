@@ -1,13 +1,9 @@
 static int GLID = 0;
 class Line
 {
-  Vertex p1;
-  Vertex p2;
+  Vertex point1;
+  Vertex point2;
   
-  float Xpos1;
-  float Ypos1;
-  float Xpos2;
-  float Ypos2;
   float Slope;
   float C;
   float EQx;
@@ -20,9 +16,9 @@ class Line
   int R;
   int G;
   int B;
-  Line(Vertex point1, Vertex point2)
+  Line(Vertex p1, Vertex p2)
   {
-    UpdatePoints(point1,point2);
+    GenerateEquationFactors(p1, p2);
     IsOver = false;
     IsSelected = false;
     R = 255;
@@ -33,26 +29,9 @@ class Line
   
   void Display()
   {
-   update();
    stroke(R,G,B);
    strokeWeight(1);
-   line(Xpos1,Ypos1,Xpos2,Ypos2);  
-  }
-  
-  void GenerateEquation()
-  {
-    Slope = (Ypos2-Ypos1)/(Xpos2-Xpos1);
-    C = Ypos1 - Slope*Xpos1;
-  }
-  void UpdatePoints(Vertex point1, Vertex point2)
-  {
-    p1 = point1;
-    p2 = point2;
-    Xpos1 = point1.xpos;
-    Ypos1 = point1.ypos;
-    Xpos2 = point2.xpos;
-    Ypos2 = point2.ypos;
-    GenerateEquation();
+   line(point1.x,point1.y,point2.x,point2.y);  
   }
   
   void update()
@@ -61,38 +40,44 @@ class Line
 
     if(IsSelected)
     {
-      p1.IsSelected = true;
-      p2.IsSelected = true;
+      point1.IsSelected = true;
+      point2.IsSelected = true;
       R = 255;
       G = 0;
       B = 255;
     }
     else if(IsOver) 
-    { //<>//
+    {
       R = 0;
       G = 255;
       B = 0;
     }
  
-    if (keyPressed && key == 'p' && IsSelected) // if we are not holding shift
-    {
-      IsSelected = false;         
-    }
+    if (keyPressed && key == 'l' && IsSelected) // if we are not holding shift
+    {IsSelected = false;}
   }
+  
+  void GenerateEquationFactors(Vertex p1, Vertex p2)
+  {
+    point1 = p1;
+    point2 = p2;
+    Slope = (point2.y-point1.y)/(point2.x-point1.x);
+    C = point1.y - Slope*point1.x;
+  } //<>// //<>// //<>//
   
   boolean CheckinLineDomain(boolean realSlope) //check to see if the mosue cursor is with in the lines domain
   {
     float x1r, x2r, y1r, y2r; //Line restraints 
     
-    if(Xpos1 > Xpos2)
-    {x1r = Xpos2; x2r = Xpos1;}
+    if(point1.x > point2.x)
+    {x1r = point2.x; x2r = point1.x;}
     else
-    {x2r = Xpos2; x1r = Xpos1;}
+    {x2r = point2.x; x1r = point1.x;}
     
-    if(Ypos1 > Ypos2) 
-    {y1r = Ypos2; y2r = Ypos1;}
+    if(point1.y > point2.y) 
+    {y1r = point2.y; y2r = point1.y;}
     else
-    {y2r = Ypos2; y1r = Ypos1;}
+    {y2r = point2.y; y1r = point1.y;}
     
     if(realSlope)
     {
@@ -123,7 +108,7 @@ class Line
   
   boolean CheckifRealSlope()// checks to see if the line's slope is not undefined
   {
-    if(Xpos2-Xpos1 != 0)
+    if(point2.x-point1.x != 0)
     {            
       return true;
     }
@@ -145,9 +130,9 @@ class Line
     }
     
     
-    else if(Xpos2-Xpos1 == 0)
+    else if(point2.x-point1.x == 0)
     {
-      if (mouseX >= Xpos1-7 && mouseX <= Xpos1+7 && CheckinLineDomain(CheckifRealSlope()))
+      if (mouseX >= point1.x-7 && mouseX <= point1.x+7 && CheckinLineDomain(CheckifRealSlope()))
       {
         R = 0;
         G = 255;

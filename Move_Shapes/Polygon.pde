@@ -9,14 +9,13 @@ class Polygon
    Poly.beginShape();
    for(int i = 0; i<Points.size(); i++)
    {
-     Poly.vertex(Points.get(i).xpos,Points.get(i).ypos);
+     Poly.vertex(Points.get(i).x,Points.get(i).y);
    }
    Poly.endShape(CLOSE);
   }
   
   void display()
-  {
-   
+  {   
    pushMatrix();
    shape(Poly);
    popMatrix();

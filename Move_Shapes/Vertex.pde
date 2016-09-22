@@ -1,19 +1,17 @@
 class Vertex
 {
  int ID;
- float xpos;
- float ypos;
- float zpos;
+ float x;
+ float y;
  int R;
  int B;
  int G;
  boolean IsOver;
  boolean IsSelected;
-  Vertex(float x, float y,float z)
+  Vertex(float tempX, float tempY)
   {
-    xpos = x;
-    ypos = y;
-    zpos = z;
+    x = tempX;
+    y = tempY;
     R = 0;
     B = 0;
     G = 0;
@@ -21,40 +19,38 @@ class Vertex
     IsSelected = false;
   }
  
-    void plot()
+  void plot()
+  {
+    strokeWeight(5);
+    stroke(R,G,B);
+    point(x,y);   
+  }
+  
+  void update()
+  {
+    if(IsSelected)
     {
-      update();
-      strokeWeight(5);
-      stroke(R,G,B);
-      point(xpos,ypos);
-      
-      if(IsSelected)
-      {R = 0;G = 0;B = 255;}
-      else
-    {R = 0;G = 0;B = 0;}
-      
+      R = 0;
+      G = 255;
+      B = 0;
     }
     
-    void update()
+    else if(IsOver) 
     {
-      if(IsSelected)
-      {
-        R = 0;
-        G = 255;
-        B = 0;
-      }
-      else if(IsOver) 
-      {
-        R = 0;
-        G = 255;
-        B = 255;
-      }
-      
-      else
-      {
-        R = 0;
-        G = 0;
-        B = 0;
-      }   
+      R = 0;
+      G = 255;
+      B = 255;
     }
+    
+    else
+    {
+      R = 0;
+      G = 0;
+      B = 0;
+    }
+    
+    if (keyPressed && key == 'p' && IsSelected) // if we are not holding shift
+    {IsSelected = false;}
+    
+  }
 }

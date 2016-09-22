@@ -14,23 +14,23 @@ void ClickPoint()
   {
     for(int i = 0; i< PointArray.size(); i++)
     {
-      Vertex Point = PointArray.get(i);
+      Vertex point = PointArray.get(i);
   
-      if (Point.IsOver == true) // If we are over the point and we click
+      if (point.IsOver == true) // If we are over the point and we click
         {
           OverPoint = true;
           if (keyPressed)
           {
             if (keyCode == SHIFT) // if we are holding shift
             {
-              DeletePoint(Point);
+              DeletePoint(point);
             }
                         
           }
           
           else
           {
-            Point.IsSelected = true;
+            point.IsSelected = true;
           }
         }  
   
@@ -40,24 +40,20 @@ void ClickPoint()
           {
             if (keyCode != SHIFT) // if we are not holding shift
             {
-              Point.IsSelected = false;        
+              point.IsSelected = false;        
             }
           }
           
           else
           {
-            Point.IsSelected = false;      
+            point.IsSelected = false;      
           }
         }
       } 
     
       if ((OverPoint != true) && (keyPressed == false)) // We are not over a point
       {   
-        Vertex point = new Vertex(MyMouseX,MyMouseY,0);
-        if(PointArray.size() >0)
-        {point.ID = PointArray.get(PointArray.size()-1).ID+1;}
-
-        PointArray.add(point);
+        AppendPoint();
         newPoint = true;
       }
   }
@@ -108,12 +104,13 @@ void AddMidPoint(Line line)//This function finds where the new point should be i
   if(line.IsSelected)
   {
     Vertex pivPoint;
+    Vertex midPoint = new Vertex(mouseX,mouseY);
     int newIndex = 0;
     
-    if(line.p1.ID > line.p2.ID)
-    {pivPoint = line.p1;}
+    if(line.point1.ID > line.point2.ID)
+    {pivPoint = line.point1;}
     else
-    {pivPoint = line.p2;}
+    {pivPoint = line.point2;}
     
     for(int i = 0; i<PointArray.size(); i++)
     {
@@ -124,17 +121,21 @@ void AddMidPoint(Line line)//This function finds where the new point should be i
       }
     }
     
-    PointArray.add(newIndex,new Vertex(mouseX,mouseY,0));
-    PointArray.get(newIndex).ID = PointArray.get(newIndex-1).ID + 1;
+    if(newIndex == PointArray.size()-1)
+    {AppendPoint();}
     
-    for(int i = ++newIndex; i<PointArray.size(); i++)
+    else
     {
-      PointArray.get(i).ID++;
+      midPoint.ID = PointArray.get(newIndex).ID;    
+      PointArray.add(newIndex,midPoint);
+      
+      for(int i = newIndex+1; i<PointArray.size(); i++)//Adjests all point IDs
+      {PointArray.get(i).ID++;}
     }
+    
+    newPoint = true;
+    line.IsSelected = false;    
   }
-  
-  newPoint = true;
-  line.IsSelected = false;
 }
 
 void DeletePoint(Vertex point)
@@ -167,6 +168,14 @@ boolean a_line_is_selected()
     {return true;}
   } 
   return false;
+}
+
+void AppendPoint()//Adds point at the end of the point list
+{
+  Vertex point = new Vertex(mouseX,mouseY);
+  if(PointArray.size() >0)
+  {point.ID = PointArray.get(PointArray.size()-1).ID+1;}
+  PointArray.add(point);
 }
  
  
