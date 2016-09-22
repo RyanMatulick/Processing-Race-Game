@@ -23,8 +23,9 @@ class Vertex
  
     void plot()
     {
+      update();
       strokeWeight(5);
-      stroke(R,B,G);
+      stroke(R,G,B);
       point(xpos,ypos);
       
       if(IsSelected)
@@ -32,5 +33,28 @@ class Vertex
       else
     {R = 0;G = 0;B = 0;}
       
+    }
+    
+    void update()
+    {
+      if(IsSelected)
+      {
+        R = 0;
+        G = 255;
+        B = 0;
+      }
+      else if(IsOver) 
+      {
+        R = 0;
+        G = 255;
+        B = 255;
+      }
+      
+      else
+      {
+        R = 0;
+        G = 0;
+        B = 0;
+      }   
     }
 }

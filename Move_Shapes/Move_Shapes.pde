@@ -66,6 +66,8 @@ void draw()
     {
       LineArray.add(new Line(PointArray.get(i),PointArray.get(i+1)));
     }
+    
+    LineArray.add(new Line(PointArray.get(PointArray.size()-1),PointArray.get(0)));
     newPoint = false;
   }
   

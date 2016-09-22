@@ -23,15 +23,14 @@ void ClickPoint()
           {
             if (keyCode == SHIFT) // if we are holding shift
             {
-              Point.IsSelected = true;
-            }
-            
-            else if (Point.IsSelected && key == 'p') // if we are holding shift
-            {
               DeletePoint(Point);
-              break;
             }
-            
+                        
+          }
+          
+          else
+          {
+            Point.IsSelected = true;
           }
         }  
   
@@ -55,24 +54,11 @@ void ClickPoint()
       if ((OverPoint != true) && (keyPressed == false)) // We are not over a point
       {   
         Vertex point = new Vertex(MyMouseX,MyMouseY,0);
+        if(PointArray.size() >0)
+        {point.ID = PointArray.get(PointArray.size()-1).ID+1;}
+
+        PointArray.add(point);
         newPoint = true;
-  
-        if(PointArray.size()<=0)
-        {
-          Vertex temp = new Vertex(MyMouseX,MyMouseY,0);
-          PointArray.add(point);
-          PointArray.get(0).ID = 0;
-          PointArray.add(temp);
-          PointArray.get(1).ID = 1;
-        }
-  
-        else if(PointArray.size()>=2)
-        {
-          PointArray.set(PointArray.size()-1,point);
-          PointArray.get(PointArray.size()-1).ID = PointArray.size()-1;
-          PointArray.add(new Vertex(PointArray.get(0).xpos, PointArray.get(0).ypos, PointArray.get(0).zpos));
-          PointArray.get(PointArray.size()-1).ID = PointArray.size()-1;
-        }
       }
   }
 }
@@ -92,10 +78,8 @@ void ClickLine()
         {
           if (keyPressed)
           {
-            if (key == 'o') // if we are pressing down 'o' key
-            {
-              line.IsSelected = true;
-            }
+            if(keyCode ==SHIFT)
+            {line.IsSelected = true;}
           }
         }
       }
@@ -104,7 +88,7 @@ void ClickLine()
       {              
         if (keyPressed)
         {
-          if (key != 'o') // if we are not holding shift
+          if (keyCode != SHIFT) // if we are not holding shift
             {
               line.IsSelected = false;         
             }
@@ -112,7 +96,7 @@ void ClickLine()
       else
       {
         AddMidPoint(line);
-        line.IsSelected = false;
+        line.IsSelected = false;        
       }
       
     }
@@ -123,17 +107,17 @@ void AddMidPoint(Line line)//This function finds where the new point should be i
 {  
   if(line.IsSelected)
   {
-    Vertex point;
+    Vertex pivPoint;
     int newIndex = 0;
     
     if(line.p1.ID > line.p2.ID)
-    {point = line.p1;}
+    {pivPoint = line.p1;}
     else
-    {point = line.p2;}
+    {pivPoint = line.p2;}
     
     for(int i = 0; i<PointArray.size(); i++)
     {
-      if(PointArray.get(i).ID == point.ID)
+      if(PointArray.get(i).ID == pivPoint.ID)
       {
         newIndex = i;
         break;
@@ -169,9 +153,9 @@ void DeletePoint(Vertex point)
   for(int i = index+1; i<PointArray.size(); i++)
   {
     PointArray.get(i).ID--;     
-  }
+  }  
   
-  PointArray.remove(index);
+  PointArray.remove(index);    
   newPoint = true;
 }
  
