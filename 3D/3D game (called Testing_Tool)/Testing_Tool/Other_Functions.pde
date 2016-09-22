@@ -35,7 +35,7 @@ void UpdatePlayerSpeed(Vehicle Player)
       }
     } 
 }
-
+/*
 void UpdateScore() // Updates for each player
 {
  if(Car1Score == false)
@@ -70,3 +70,4 @@ void UpdateScore() // Updates for each player
     }
   }   
 }
+*/

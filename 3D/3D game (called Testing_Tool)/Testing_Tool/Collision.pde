@@ -1,12 +1,12 @@
 
 boolean FindCollision(Vehicle Player,Vehicle Enemy)
 {
-    int px = Player.getX();
-    int py = Player.getY();
+    float px = Player.getX();
+    float py = Player.getY();
     float pt = Player.getT();
     
-    int npx = Enemy.getX();
-    int npy = Enemy.getY();
+    float npx = Enemy.getX();
+    float npy = Enemy.getY();
     float npt = Enemy.getT();
   
     //Dimensions of Car
@@ -28,9 +28,9 @@ boolean FindCollision(Vehicle Player,Vehicle Enemy)
     Point NP4 = new Point(Q4.x*cos(npt)+Q4.y*sin(-npt)+npx,Q4.x*sin(npt)+Q4.y*cos(npt)+npy);
     
     //Just To See Points
-    //if (DebugMode == true)
-    textSize(10);
+    if (DebugMode == true)
     {
+      textSize(10);
       fill(255,0,0);
       text("P1",P1.x,P1.y);
       text("P2",P2.x,P2.y);
@@ -85,10 +85,10 @@ boolean LinesIntersect(Point A, Point B, Point C,Point D)
   return (t >= 0) && (t <= 1) && (u >= 0) && (u <= 1); // if true lines have intersected
 }
 
-boolean FindScore(Vehicle Player)
+void FindScore(Vehicle Player)
 {
-  int px = Player.getX();
-  int py = Player.getY();
+  float px = Player.getX();
+  float py = Player.getY();
   float pt = Player.getT()+0.14; // 0.14 is a correction value
   
   //Side Of Car to make sure we collide
@@ -98,8 +98,11 @@ boolean FindScore(Vehicle Player)
   Point P3 = new Point(Q3.x*cos(pt)+Q3.y*sin(-pt)+px,Q3.x*sin(pt)+Q3.y*cos(pt)+py);
   Point P4 = new Point(Q4.y*sin(-pt)+px,Q4.y*cos(pt)+py);
   // Points of Start Line
-  Point S1 = new Point(3*width/9,height/3-3*width/16-((height+width)/40)); // finishline start
-  Point S2 = new Point(3*width/8,height/3-3*width/16+(height+width)/40); // finishline end
+  Point S1 = new Point(ellipse1x,ellipsey); // finishline start
+  Point S2 = new Point(ellipse1x,0); // finishline end
+  
+   
+  
   
   if (DebugMode == true)
   {
@@ -108,8 +111,25 @@ boolean FindScore(Vehicle Player)
     text("C1",P3.x,P3.y);
     text("C2",P4.x,P4.y); 
   }
+  if(Player.getBScore() == false)
+  {
+    if( LinesIntersect(P3,P4,S1,S2) == true)
+    {
+      Player.setBScore(true);
+      Player.setScore(Player.getScore()+1);  
+    };
+  }
+  else
+  {
+    if (LinesIntersect(P3,P4,S1,S2) == false)// get collision with start line 
+    {
+      Player.setBScore(false);
+    }
+  }
   
-  return LinesIntersect(P3,P4,S1,S2);
+  
+  
+  
 }
 
 class Point

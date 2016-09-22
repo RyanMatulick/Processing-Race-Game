@@ -9,13 +9,11 @@ float r; // radius of circle the car follows
 float R; // Temperary radius for current vehicle
 int K; //index of Car that Caused Crash
 int NumofCars; // number of cars in game
-int score1;
-int score2;
 
 boolean DebugMode; // used for testing and visualising values
 boolean Crash; // Has someone crashed?
-boolean Car1Score; // If Player 1 is on score line
-boolean Car2Score; // If PLayer 2 is on score line
+
+
 
 Vehicle [] CarArray = new Vehicle[4];
 
@@ -24,11 +22,13 @@ void mySetup()
 {
   if (PlayGame == true)
   {
-    cxpos = 450;
-    cypos = 420;
-    orbitRadius = 660;
-    LRrotation = 0;
-    UDrotation = 0;
+    cxpos = width/2;
+    cypos = height/2;
+    czpos = 0;
+    
+    orbitRadius = 780;
+    UDrotation = 90;
+    LRrotation = -5;
   }
   else
   {
@@ -45,8 +45,6 @@ void mySetup()
     K = -1;
     Threshold = 0;
     NumofCars = 4;
-    score1 = 0;
-    score2 = 0;
     //for Tracks
     ellipse2x = (width/5)*3;
     ellipse1x = (width/5)*2;

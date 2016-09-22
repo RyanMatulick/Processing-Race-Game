@@ -1,8 +1,4 @@
-//Line Graph Button
-
-
-
-class Button
+class Button3D
 {
   int ButtonX;
   int ButtonY;
@@ -23,7 +19,7 @@ class Button
   int sB;
   boolean isActive;
   boolean isOver;
-  Button(int iButtonX, int iButtonY, int iButtonZ, int iButtonWidth, int iButtonHeight, int iButtonDepth, float irotateX, float irotateY, float irotateZ, String iLabel, int iR, int iG, int iB)
+  Button3D(int iButtonX, int iButtonY, int iButtonZ, int iButtonWidth, int iButtonHeight, int iButtonDepth, float irotateX, float irotateY, float irotateZ, String iLabel, int iR, int iG, int iB)
   {
     isActive = false;
     isOver = false;
@@ -53,7 +49,7 @@ class Button
     box(ButtonWidth,ButtonHeight,ButtonDepth);
     
     fill(0);
-    text(Label,-ButtonWidth/2+10,ButtonHeight/3,ButtonDepth/2+5);
+    text(Label,0,5,10);
     
     rotateZ(-rotateZ);
     rotateY(-rotateY);
@@ -74,7 +70,5 @@ class Button
         B = 10;
         isOver = true;
     }
-    
   }
-  
 }

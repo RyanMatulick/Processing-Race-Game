@@ -1,7 +1,7 @@
 void thirdPersonMode()
 {
-    int px = CarArray[0].getX();
-    int py = CarArray[0].getY();
+    float px = CarArray[0].getX();
+    float py = CarArray[0].getY();
     float pt = CarArray[0].getT();
   
     //Dimensions of Car
