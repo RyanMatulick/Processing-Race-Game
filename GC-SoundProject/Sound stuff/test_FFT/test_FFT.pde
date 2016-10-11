@@ -55,7 +55,7 @@ public void setup()
   // Load and play a soundfile and loop it. 
   // This has to be called 
   // before the FFT is created.
-  String song = "Piano.mf.C8.aiff";
+  String song = "Intervals.mp3";
   sample = new SoundFile(this, song);
   sample.loop();
  
