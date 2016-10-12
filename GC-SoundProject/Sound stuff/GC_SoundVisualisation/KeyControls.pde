@@ -1,39 +1,30 @@
-char [] Keys = {'m','d','f','g'};
+char [] Keys = {'m','n','f','g'};
 Boolean [] KeyPress = new Boolean[20];
 
 
 void GetKeyPresses()
 {
-  
-  if(KeyPress[0] == true) // m
+  if(KeyPress[0])
   {
-    if(EnterMenu == false)
+    if(Dynasmooth_factor< 1.98)
     {
-      sample.stop();
-      EnterDynamicVis = false;
-      status = ApplicationState.MainMenu;
+      Dynasmooth_factor += 0.01;  //cap at 2
     }
   }
-  
-  if(KeyPress[1] == true) // d
+  if(KeyPress[1])
   {
-    if(EnterDynamicVis == false)
+    if(Dynasmooth_factor> 0.02)
     {
-      sample.stop();
-      
-      EnterMenu = false;
-      status = ApplicationState.DynamicVis;
+       Dynasmooth_factor -= 0.01; // cap at 0.01
     }
+   
   }
-  
-  if(KeyPress[2] == true) // f
-  {
-    rotate_factor += 0.6;
-  }
-  
   if(KeyPress[3] == true) // g
   {
-    rotate_factor -= 0.6;
+    if (Sscale >=0)
+    {
+      Sscale -= 0.05;
+    }
   }
   
 }
