@@ -22,12 +22,6 @@ void DynamicVisSetup()
     TempSpectrum = new float[bands];
     FFTBarsSetup(); 
     
-    stroke(255,0,0);
-    for (int i = 0; i< 20; i++)
-    {
-      line(i*(120*0.6),0,i*(120*0.6),1000);
-    }
-    
     for (int i = 0; i < bands/FFTView; i++) 
     {
       Branches.add(new Branch());
@@ -35,7 +29,11 @@ void DynamicVisSetup()
     }
     EnterDynamicVis = true;
   }
-  
+  stroke(255,0,0);
+  for (int i = 0; i< 20; i++)
+  {
+    line(i*(120*0.6),0,i*(120*0.6),1000);
+  }
   //HorizontalShift += 0.5;
   fft.analyze();
  

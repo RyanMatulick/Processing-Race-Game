@@ -2,7 +2,6 @@ char [] Keys = {'m','d','f','g'};
 Boolean [] KeyPress = new Boolean[20];
 
 
-
 void GetKeyPresses()
 {
   
@@ -11,7 +10,7 @@ void GetKeyPresses()
     if(EnterMenu == false)
     {
       sample.stop();
-      //EnterDynamicVis = false;
+      EnterDynamicVis = false;
       status = ApplicationState.MainMenu;
     }
   }
@@ -22,7 +21,7 @@ void GetKeyPresses()
     {
       sample.stop();
       
-      //EnterMenu = false;
+      EnterMenu = false;
       status = ApplicationState.DynamicVis;
     }
   }

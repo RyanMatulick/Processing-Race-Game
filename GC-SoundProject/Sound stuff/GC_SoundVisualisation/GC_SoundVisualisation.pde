@@ -10,9 +10,9 @@ void setup()
 {
   
   //fullScreen(P2D);
-  size(1000,800,P2D);
-  status = ApplicationState.MainMenu;
-  ButtonList.add(new Button(width-300,200,100,100));
+  size(1000,700,P2D);
+  status = ApplicationState.DynamicVis;
+  ButtonList.add(new Button(width-300,200,100,100,"  Dynamic \nVisualisation"));
   
   
   EnterMenu = false;
